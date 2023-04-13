@@ -1,5 +1,7 @@
 module models
 
+pub const CURRENCY_NOT_MATCHING_ERROR = "Currencies don't match"
+
 const multi_100 = 100
 
 const multi_100f = 100.0
@@ -41,7 +43,7 @@ pub fn new_euros_from_unit(unit i32) Money {
 	return new_money_from_unit(Currency.euro, unit)
 }
 
-pub fn (m Money) to_string() string {
+pub fn (m Money) to_str() string {
 	val := f32(m.val) / models.multi_100f
 	return '${val:.2f} ${currency_to_string(m.currency)}'
 }
@@ -51,6 +53,22 @@ pub fn (m Money) + (n Money) Money {
 		val: m.val + n.val
 		currency: m.currency
 	}
+}
+
+pub fn (m Money) add(n Money) !Money {
+	if m.currency != n.currency {
+		return error(models.CURRENCY_NOT_MATCHING_ERROR)
+	}
+
+	return m + n
+}
+
+pub fn (m Money) sub(n Money) !Money {
+	if m.currency != n.currency {
+		return error(models.CURRENCY_NOT_MATCHING_ERROR)
+	}
+
+	return m - n
 }
 
 pub fn (m Money) - (n Money) Money {
