@@ -9,6 +9,8 @@ user_store_exercise
 
 # Ignore binary output folders
 bin/
+!bin/.gitkeep
+
 
 # Ignore common editor/system specific metadata
 .DS_Store
