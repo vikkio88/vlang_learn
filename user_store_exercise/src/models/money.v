@@ -1,6 +1,6 @@
 module models
 
-pub const CURRENCY_NOT_MATCHING_ERROR = "Currencies don't match"
+pub const currency_not_matching_error = "Currencies don't match"
 
 const multi_100 = 100
 
@@ -57,7 +57,7 @@ pub fn (m Money) + (n Money) Money {
 
 pub fn (m Money) add(n Money) !Money {
 	if m.currency != n.currency {
-		return error(models.CURRENCY_NOT_MATCHING_ERROR)
+		return error(models.currency_not_matching_error)
 	}
 
 	return m + n
@@ -65,7 +65,7 @@ pub fn (m Money) add(n Money) !Money {
 
 pub fn (m Money) sub(n Money) !Money {
 	if m.currency != n.currency {
-		return error(models.CURRENCY_NOT_MATCHING_ERROR)
+		return error(models.currency_not_matching_error)
 	}
 
 	return m - n

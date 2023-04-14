@@ -30,22 +30,22 @@ fn test_money_operators() {
 }
 
 fn test_money_add_with_different_currencies() {
-	exp := CURRENCY_NOT_MATCHING_ERROR
+	exp := currency_not_matching_error
 	eur := new_euros_from_unit(100)
 	dollar := new_dollars_from_unit(10)
-	eur.add(dollar) or { 
-		assert err.msg == exp 
+	eur.add(dollar) or {
+		assert err.msg() == exp
 		return
 	}
 	assert false
 }
 
 fn test_money_sub_with_different_currencies() {
-	exp := CURRENCY_NOT_MATCHING_ERROR
+	exp := currency_not_matching_error
 	eur := new_euros_from_unit(100)
 	dollar := new_dollars_from_unit(10)
-	eur.sub(dollar) or { 
-		assert err.msg == exp 
+	eur.sub(dollar) or {
+		assert err.msg() == exp
 		return
 	}
 	assert false
