@@ -12,3 +12,28 @@ fn test_build_user() {
 	assert u2.username == 'luigi.stuff'
 	assert u2.balance.to_str() == '300.00 €'
 }
+
+fn test_passwords_methods() {
+	mut u := new_user('Mario Stuff', new_euros_from_unit(1000))
+
+	assert u.password == 'qwerty'
+	assert u.check_password('qwerty') == true
+	u.update_password('qwertyuiop')
+	assert u.check_password('qwertyuiop') == true
+}
+
+fn test_bank_ops_methods() {
+	mut u := new_user('Mariano Taiano', new_euros_from_unit(100))
+	euros := new_euros_from_unit(10)
+	dollars := new_dollars_from_unit(2000)
+
+	assert u.deposit(euros) == true
+	assert u.balance.to_str() == '110.00 €'
+	assert u.deposit(dollars) == false
+	assert u.balance.to_str() == '110.00 €'
+
+	assert u.withdraw(euros) == true
+	assert u.balance.to_str() == '100.00 €'
+	assert u.deposit(dollars) == false
+	assert u.balance.to_str() == '100.00 €'
+}
