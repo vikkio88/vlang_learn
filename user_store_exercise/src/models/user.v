@@ -4,11 +4,12 @@ import rand
 
 pub struct User {
 	id        string
-	username  string
 	full_name string
 mut:
 	password string
 	balance  Money
+pub:
+	username  string
 }
 
 pub fn new_user(name string, balance Money) User {
