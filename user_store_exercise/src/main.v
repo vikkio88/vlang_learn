@@ -1,6 +1,6 @@
 module main
 
-import app { new_app }
+import src.app { new_app }
 import os
 
 fn main() {

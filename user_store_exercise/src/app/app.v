@@ -1,7 +1,7 @@
 module app
 
 import os
-import console
+import src.console
 
 pub struct App {
 mut:
@@ -9,7 +9,7 @@ mut:
 }
 
 pub fn new_app() &App {
-	return &App {}
+	return &App{}
 }
 
 pub fn (mut app App) run() {
