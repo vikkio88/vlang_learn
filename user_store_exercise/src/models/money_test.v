@@ -7,9 +7,9 @@ fn test_money_to_string() {
 
 	p := new_money_from_fraction(Currency.dollar, 150)
 
-	assert m.to_str() == '1.00 $'
-	assert n.to_str() == '1.50 $'
-	assert p.to_str() == '1.50 $'
+	assert m.str() == '1.00 $'
+	assert n.str() == '1.50 $'
+	assert p.str() == '1.50 $'
 }
 
 fn test_money_operators() {
@@ -17,16 +17,16 @@ fn test_money_operators() {
 	n := new_money_from_unit(Currency.dollar, 1)
 
 	res := m + n
-	assert res.to_str() == '2.00 $'
+	assert res.str() == '2.00 $'
 
 	mut o := new_money_from_fraction(Currency.dollar, 50)
-	assert (res + o).to_str() == '2.50 $'
-	assert (res - o).to_str() == '1.50 $'
+	assert (res + o).str() == '2.50 $'
+	assert (res - o).str() == '1.50 $'
 
 	o += new_money_from_unit(Currency.dollar, 10)
-	assert o.to_str() == '10.50 $'
+	assert o.str() == '10.50 $'
 	o -= new_money_from_uf(Currency.dollar, 10, 35)
-	assert o.to_str() == '0.15 $'
+	assert o.str() == '0.15 $'
 }
 
 fn test_money_add_with_different_currencies() {

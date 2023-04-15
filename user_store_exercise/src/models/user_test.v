@@ -6,11 +6,11 @@ fn test_build_user() {
 
 	assert u.id != 'a fixed string'
 	assert u.username == 'mario.stuff'
-	assert u.balance.to_str() == '1000.00 €'
+	assert u.balance.str() == '1000.00 €'
 
 	assert u2.id != u.id
 	assert u2.username == 'luigi.stuff'
-	assert u2.balance.to_str() == '300.00 €'
+	assert u2.balance.str() == '300.00 €'
 }
 
 fn test_passwords_methods() {
@@ -28,12 +28,12 @@ fn test_bank_ops_methods() {
 	dollars := new_dollars_from_unit(2000)
 
 	assert u.deposit(euros) == true
-	assert u.balance.to_str() == '110.00 €'
+	assert u.balance.str() == '110.00 €'
 	assert u.deposit(dollars) == false
-	assert u.balance.to_str() == '110.00 €'
+	assert u.balance.str() == '110.00 €'
 
 	assert u.withdraw(euros) == true
-	assert u.balance.to_str() == '100.00 €'
+	assert u.balance.str() == '100.00 €'
 	assert u.deposit(dollars) == false
-	assert u.balance.to_str() == '100.00 €'
+	assert u.balance.str() == '100.00 €'
 }

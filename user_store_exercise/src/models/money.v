@@ -43,7 +43,7 @@ pub fn new_euros_from_unit(unit i32) Money {
 	return new_money_from_unit(Currency.euro, unit)
 }
 
-pub fn (m Money) to_str() string {
+pub fn (m Money) str() string {
 	val := f32(m.val) / models.multi_100f
 	return '${val:.2f} ${currency_to_string(m.currency)}'
 }
