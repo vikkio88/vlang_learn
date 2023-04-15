@@ -1,10 +1,13 @@
 module main
 
 import src.app { new_app }
+import src.models { new_money_from_uf }
 import os
 
 fn main() {
 	mut a := new_app()
+	mut euros := new_money_from_uf(.euro, 735, 65)
+	println(euros)
 	cleanup := fn [a] (_ os.Signal) {
 		println('\n\nCtrl-C was pressed')
 		a.cleanup()
