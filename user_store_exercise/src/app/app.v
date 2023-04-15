@@ -8,6 +8,10 @@ mut:
 	last string
 }
 
+pub fn new_app() &App {
+	return &App {}
+}
+
 pub fn (mut app App) run() {
 	mut choice := ''
 	for {

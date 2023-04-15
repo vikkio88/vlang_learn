@@ -1,10 +1,10 @@
 module main
 
-import app { App }
+import app { new_app }
 import os
 
 fn main() {
-	mut a := &App{}
+	mut a := new_app()
 	cleanup := fn [a] (_ os.Signal) {
 		println('\n\nCtrl-C was pressed')
 		a.cleanup()
