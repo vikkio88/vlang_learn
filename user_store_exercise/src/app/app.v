@@ -1,7 +1,7 @@
 module app
 
 import os
-import src.console { etc, cls }
+import src.console { cls, etc }
 import src.libs { Db }
 import src.models { User }
 
@@ -13,6 +13,12 @@ enum State {
 struct Context {
 mut:
 	logged_in_user ?User
+}
+
+fn new_empty_ctx() Context {
+	return Context{
+		logged_in_user: none
+	}
 }
 
 fn (mut ctx Context) set_user(user User) {
@@ -34,9 +40,7 @@ pub fn new_app(db &Db) &App {
 	return &App{
 		db: db
 		state: .login
-		ctx: Context{
-			logged_in_user: none
-		}
+		ctx: new_empty_ctx()
 	}
 }
 
@@ -76,9 +80,8 @@ fn (mut app App) login() State {
 }
 
 fn (mut app App) dashboard() State {
-	user := app.ctx.logged_in_user or {
-		return .login
-	}
+	user := app.ctx.logged_in_user or { return .login }
+
 	cls()
 	println('\n\nDashboard')
 	println('Welcome ${user.full_name}\n\n')
@@ -86,7 +89,7 @@ fn (mut app App) dashboard() State {
 	for {
 		c := os.input('Q to logout:')
 		if c == 'q' {
-			println("Logging you out...")			
+			println('Logging you out...')
 			etc()
 			app.ctx.logout()
 			break
