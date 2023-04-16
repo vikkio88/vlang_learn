@@ -2,6 +2,7 @@ module libs
 
 import models { User, new_euros_from_unit, new_user }
 
+[heap]
 pub struct Db {
 	users []User
 }
