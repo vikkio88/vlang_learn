@@ -1,9 +1,9 @@
 module app
 
 import os
-import src.console { etc }
+import src.console { etc, cls }
 import src.libs { Db }
-import src.models
+import src.models { User }
 
 enum State {
 	login
@@ -12,7 +12,15 @@ enum State {
 
 struct Context {
 mut:
-	logged_in_user ?models.User
+	logged_in_user ?User
+}
+
+fn (mut ctx Context) set_user(user User) {
+	ctx.logged_in_user = user
+}
+
+fn (mut ctx Context) logout() {
+	ctx.logged_in_user = none
 }
 
 pub struct App {
@@ -49,31 +57,38 @@ pub fn (mut app App) run() {
 
 fn (mut app App) login() State {
 	for {
+		cls()
 		println('\n\nLogin\n\n')
 		un := os.input('username: ')
 		pw := os.input('password: ')
-		app.ctx.logged_in_user = app.db.get_user_by_up(un, pw) or {
-			println('Login failed, try again...')
+		user := app.db.get_user_by_up(un, pw) or {
+			cls()
+			println('\n\nLogin failed, try again...')
+			etc()
 			continue
 		}
 
-		if app.ctx.logged_in_user != none {
-			break
-		}
+		app.ctx.set_user(user)
+		break
 	}
 
 	return .dashboard
 }
 
-fn (app App) dashboard() State {
-	println('Dashboard')
-	println(app.ctx.logged_in_user)
-
-	etc()
+fn (mut app App) dashboard() State {
+	user := app.ctx.logged_in_user or {
+		return .login
+	}
+	cls()
+	println('\n\nDashboard')
+	println('Welcome ${user.full_name}\n\n')
 
 	for {
 		c := os.input('Q to logout:')
 		if c == 'q' {
+			println("Logging you out...")			
+			etc()
+			app.ctx.logout()
 			break
 		}
 	}

@@ -4,11 +4,11 @@ import rand
 
 pub struct User {
 	id        string
-	full_name string
 mut:
 	password string
 	balance  Money
 pub:
+	full_name string
 	username  string
 }
 
